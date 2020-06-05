@@ -123,6 +123,11 @@ $formInputs = $postObject->getFormInputs();
         $("#upload-form").on("submit", function(e) {
             var form = $(this);
 
+            if (form.find("input[name=file]")[0].files.length <= 0) {
+                alert("Please select file");
+                return false;
+            }
+
             var uploadButton = form.find("button[name=submit]");
             var defaultUploadText = uploadButton.text();
 
@@ -138,7 +143,7 @@ $formInputs = $postObject->getFormInputs();
                 processData: false
             }).done(function() {
                 alert("File uploaded");
-                form[0].reset();
+                location.reload();
             }).fail(function() {
                 // Handle error
                 alert("There was an error uploading.");
